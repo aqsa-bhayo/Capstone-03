@@ -1,6 +1,3 @@
-
-
-
 document
   .getElementById("signIn")
   .addEventListener("submit", function (event) {
@@ -27,7 +24,7 @@ document
     if (userEmail === parseObj.email && userPassword === parseObj.password) {
       alert("Login successful!");
 
-      window.location.href = "/API.html   ";
+      window.location.href = "/index.html";
     } else {
       let errorMessage = document.createElement("p");
       errorMessage.id = "message"; 
@@ -35,4 +32,24 @@ document
       errorMessage.textContent = "Error: Invalid email or password. Please try again!";
       document.getElementById("loginForm").appendChild(errorMessage);
     }
+  });
+
+   document.getElementById('signIn').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent form from submitting
+
+    // Fetch products when sign in form is submitted
+    fetch('https://fakestoreapi.com/products')
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return res.json();
+      })
+      .then(products => {
+        // Log fetched products to the console
+        console.log('Products fetched successfully:', products);
+      })
+      .catch(error => {
+        console.error('Error fetching products:', error);
+      });
   });
